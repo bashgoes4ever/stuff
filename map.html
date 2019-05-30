@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h3>Карта</h3>
+	<div id="map" style="width: 100%; height: 300px"></div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://api-maps.yandex.ru/2.0-stable/?load=package.full&amp;lang=ru-RU"></script>
+	<script>
+		$(document).ready(function() {
+			ymaps.ready(init);
+
+			function init() {
+				var res_type = $('#res_type').val();
+				var address = $('#address').val();
+				var balcont = res_type + ' ' + address;
+				var myMap = new ymaps.Map('map', {
+					center: [43.121735, 131.927077],
+					zoom: 14,
+					behaviors: ['drag', 'zoom']
+				});
+
+				var myPlacemark = new ymaps.Placemark([43.121735, 131.927077], {
+					balloonContent:  balcont
+				});
+				myMap.geoObjects.add(myPlacemark);
+
+				myMap.controls.add('zoomControl')
+				myMap.controls.add('typeSelector')
+				myMap.controls.add('mapTools');
+			}
+		})
+
+	</script>
+</body>
+</html>
